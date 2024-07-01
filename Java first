@@ -1,0 +1,72 @@
+package fuck;
+import java.util.Scanner;
+
+interface personal{
+	void personaldetails();
+	}
+
+interface official{
+	void officialdetails();
+}
+
+abstract class person implements personal, official {
+	public String name;
+	public String address;
+	public double phone;
+	public person(String name, String address, double phone) {
+		super();
+		this.name = name;
+		this.address = address;
+		this.phone = phone;
+	}
+}
+
+class Employee extends person{
+	private int empid;
+	private String company;
+	private String designation;
+	public Employee(String name, String address, double phone, int empid, String company, String designation) {
+		super(name, address, phone);
+		this.empid = empid;
+		this.company = company;
+		this.designation = designation;
+	}
+
+	public void personaldetails() {
+		System.out.println("--------------Employee details----------------");
+		System.out.println("employee name :"+name);
+		System.out.println("address:"+address);
+		System.out.println("phone number :" +phone);
+	}
+	public void officialdetails() {
+		System.out.println("staff id :" +empid);
+		System.out.println("company:" +company);
+		System.out.println("designation :" +designation);
+	}
+public class pro1 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Employee Details");
+		System.out.println("name:");
+		String empname = sc.nextLine();
+		System.out.println("Address:");
+		String empaddr = sc.nextLine();
+		System.out.println("Phone Num:");
+		double empnum = sc.nextDouble();
+		sc.nextLine();
+		System.out.println("ID:");
+		int empid = sc.nextInt();
+		sc.nextLine();
+		System.out.println("Company:");
+		String empcom = sc.nextLine();
+		System.out.println("Designation:");
+		String empdes = sc.nextLine();
+		Employee emp = new Employee(empname, empaddr, empnum, empid, empcom, empdes);
+		emp.personaldetails();
+		emp.officialdetails();
+		sc.close();
+	}
+}
+}
