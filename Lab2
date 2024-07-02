@@ -1,0 +1,80 @@
+package shape;
+
+
+public class Square {
+    private double side;
+
+    public Square(double side) {
+        this.side = side;
+    }
+
+    public double getArea() {
+        return side * side;
+    }
+
+    public double getPerimeter() {
+        return 4 * side;
+    }
+}
+package shape;
+
+
+public class Triangle {
+    private double base;
+    private double height;
+
+    public Triangle(double base, double height) {
+        this.base = base;
+        this.height = height;
+    }
+
+    public double getArea() {
+        return 0.5 * base * height;
+    }
+
+  
+    public double getPerimeter() {
+        return 3 * base;
+    }
+}
+package shape;
+
+
+public class Circle {
+    private double radius;
+
+    public Circle(double radius) {
+        this.radius = radius;
+    }
+
+    public double getArea() {
+        return Math.PI * radius * radius;
+    }
+
+    public double getCircumference() {
+        return 2 * Math.PI * radius;
+    }
+}
+
+package shape;
+
+
+import shape.Square;
+import shape.Triangle;
+import shape.Circle;
+
+public class Main {
+    public static void main(String[] args) {
+        Square square = new Square(5);
+        System.out.println("Square area: " + square.getArea());
+        System.out.println("Square perimeter: " + square.getPerimeter());
+
+        Triangle triangle = new Triangle(4, 3);
+        System.out.println("Triangle area: " + triangle.getArea());
+        System.out.println("Triangle perimeter: " + triangle.getPerimeter());
+
+        Circle circle = new Circle(7);
+        System.out.println("Circle area: " + circle.getArea());
+        System.out.println("Circle circumference: " + circle.getCircumference());
+    }
+}
