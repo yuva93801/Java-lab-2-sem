@@ -1,0 +1,96 @@
+package ksbv;
+public abstract class animallll{
+	 public abstract void sound();
+	 public void sleep() {
+	     System.out.println("This animal is sleeping.");
+	 }
+	}
+
+package ksbv;
+public class Cat extends animallll {
+	 // Implement the abstract method
+	 public void sound() {
+	     System.out.println("The cat says: meow");
+	 }
+	}
+
+package ksbv;
+public class Dog extends animallll {
+	 public void sound() {
+	     System.out.println("The dog says: bark");
+	 }
+}
+
+package ksbv;
+public class Cow extends animallll {
+	 public void sound() {
+	     System.out.println("The cow says: moo");
+	}
+}
+package main;
+import ksbv.animallll;
+import ksbv.Cat;
+import ksbv.Dog;
+public class Main2 {
+	 public static void main(String[] args) {
+	     animallll myDog = new Dog();  
+	     animallll myCat = new Cat();  
+	     
+	     myDog.sound();  	     
+	     myCat.sound(); 
+	     
+	     myDog.sleep();  
+	     myCat.sleep();  
+	 }
+}
+
+package main;
+import ksbv.Cat;
+import ksbv.Dog;
+import ksbv.Cow;
+import ksbv.animallll;
+import java.util.Scanner;
+
+public class drivenanimal 
+{
+ public static void main(String[] args) 
+ {
+     Scanner scanner = new Scanner(System.in);
+     animallll animal = null;
+     while(true)
+     {
+         System.out.println("Choose an animal:");
+         System.out.println("1. Dog");
+         System.out.println("2. Cat");
+         System.out.println("3. Cow");
+         System.out.println("4. Exit");
+         System.out.print("Enter your choice: ");
+         int choice = scanner.nextInt();
+         switch (choice) 
+         {
+             case 1:
+                 animal = new Dog();
+                 break;
+             case 2:
+                 animal = new Cat();
+                 break;
+             case 3:
+                 animal = new Cow();
+                 break;
+             case 4:
+                 System.out.println("Exiting...");
+                 scanner.close();
+                 System.exit(0);
+                 break;
+             default:
+                 System.out.println("Invalid choice. Please try again.");
+                 continue;
+         }
+         if (animal != null) 
+         {
+             animal.sound();
+             animal.sleep();
+         }
+     }
+ }
+}
