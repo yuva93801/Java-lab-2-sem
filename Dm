@@ -1,0 +1,3 @@
+[7/10, 10:28 PM] YUVARAJ MV: SELECT E.FirstName, E.LName, D.DName FROM EMPLOYEE E INNER JOIN Department D ON E.DNo=D.DNumber WHERE D.DName = "Finance" AND E.SALARY>(SELECT AVG(SALARY) FROM EMPLOYEE E INNER
+ JOIN Department D ON E.DNo=D.DNumber WHERE D.DName = "Finance");
+[7/10, 10:30 PM] YUVARAJ MV: SELECT PNAME, PLOCATION, DNAME FROM Project, Department WHERE Project.DNUMBER=Department.DNumber;
