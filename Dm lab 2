@@ -1,0 +1,147 @@
+CREATE TABLE Panels (
+    PV_Module_ID INT PRIMARY KEY,
+    Type VARCHAR(20) NOT NULL,       -- "Monocrystalline" or "Polycrystalline"
+    Installation_Charge DECIMAL(10, 2),
+    Warranty_Years INT
+);
+
+
+CREATE TABLE Vendors (
+    TIN_Number VARCHAR(20) PRIMARY KEY,
+    Name VARCHAR(100),
+    Address TEXT,
+    Contact_Details VARCHAR(100)
+);
+
+
+CREATE TABLE Users (
+    User_ID INT PRIMARY KEY,
+    User_Type VARCHAR(20),           -- "Domestic" or "Commercial"
+    Address TEXT
+);
+
+
+
+CREATE TABLE Installations (
+    Installation_ID INT PRIMARY KEY,
+    PV_Module_ID INT,
+    TIN_Number VARCHAR(20),
+    User_ID INT,
+    Installation_Date DATE,
+    FOREIGN KEY (PV_Module_ID) REFERENCES Panels(PV_Module_ID),
+    FOREIGN KEY (TIN_Number) REFERENCES Vendors(TIN_Number),
+    FOREIGN KEY (User_ID) REFERENCES Users(User_ID)
+);
+
+
+INSERT INTO Panels (PV_Module_ID, Type, Installation_Charge, Warranty_Years) VALUES
+(1, 'Monocrystalline', 40000.00, 15),
+(2, 'Monocrystalline', 40000.00, 15),
+(3, 'Polycrystalline', 60000.00, 25),
+(4, 'Polycrystalline', 60000.00, 25),
+(5, 'Monocrystalline', 40000.00, 15),
+(6, 'Polycrystalline', 60000.00, 25),
+(7, 'Monocrystalline', 40000.00, 15),
+(8, 'Polycrystalline', 60000.00, 25),
+(9, 'Monocrystalline', 40000.00, 15),
+(10, 'Polycrystalline', 60000.00, 25),
+(11, 'Monocrystalline', 40000.00, 15),
+(12, 'Polycrystalline', 60000.00, 25),
+(13, 'Monocrystalline', 40000.00, 15),
+(14, 'Polycrystalline', 60000.00, 25),
+(15, 'Monocrystalline', 40000.00, 15);
+
+
+INSERT INTO Vendors (TIN_Number, Name, Address, Contact_Details) VALUES
+('TIN123', 'Solar Solutions Ltd.', '123 Solar Street, Delhi', '9876543210'),
+('TIN124', 'Bright Sun Energy', '456 Bright Lane, Mumbai', '9123456789'),
+('TIN125', 'EcoSun Enterprises', '789 Green Road, Bangalore', '9345678901'),
+('TIN126', 'Renewable Rays Inc.', '101 Solar Avenue, Chennai', '9456789012'),
+('TIN127', 'Green Power Co.', '202 Light Way, Hyderabad', '9567890123');
+
+
+INSERT INTO Users (User_ID, User_Type, Address) VALUES
+(1, 'Domestic', 'House No. 1, Street A, Delhi'),
+(2, 'Commercial', 'Office No. 2, Building B, Mumbai'),
+(3, 'Domestic', 'House No. 3, Street C, Bangalore'),
+(4, 'Commercial', 'Hotel No. 4, Street D, Chennai'),
+(5, 'Domestic', 'House No. 5, Street E, Hyderabad'),
+(6, 'Commercial', 'Hostel No. 6, Street F, Delhi'),
+(7, 'Domestic', 'House No. 7, Street G, Mumbai'),
+(8, 'Commercial', 'Office No. 8, Building H, Bangalore'),
+(9, 'Domestic', 'House No. 9, Street I, Chennai'),
+(10, 'Commercial', 'Hotel No. 10, Street J, Hyderabad'),
+(11, 'Domestic', 'House No. 11, Street K, Delhi'),
+(12, 'Commercial', 'Office No. 12, Building L, Mumbai'),
+(13, 'Domestic', 'House No. 13, Street M, Bangalore'),
+(14, 'Commercial', 'Hostel No. 14, Street N, Chennai'),
+(15, 'Domestic', 'House No. 15, Street O, Hyderabad');
+
+
+INSERT INTO Installations (Installation_ID, PV_Module_ID, TIN_Number, User_ID, Installation_Date) VALUES
+(1, 1, 'TIN123', 1, '2024-07-01'),
+(2, 2, 'TIN123', 2, '2024-07-02'),
+(3, 3, 'TIN124', 3, '2024-07-03'),
+(4, 4, 'TIN124', 4, '2024-07-04'),
+(5, 5, 'TIN125', 5, '2024-07-05'),
+(6, 6, 'TIN125', 6, '2024-07-06'),
+(7, 7, 'TIN126', 7, '2024-07-07'),
+(8, 8, 'TIN126', 8, '2024-07-08'),
+(9, 9, 'TIN127', 9, '2024-07-09'),
+(10, 10, 'TIN127', 10, '2024-07-10'),
+(11, 11, 'TIN123', 11, '2024-07-11'),
+(12, 12, 'TIN123', 12, '2024-07-12'),
+(13, 13, 'TIN124', 13, '2024-07-13'),
+(14, 14, 'TIN124', 14, '2024-07-14'),
+(15, 15, 'TIN125', 15, '2024-07-15');
+
+
+SELECT v.Name AS Distributor_Name, COUNT(i.Installation_ID) AS Number_of_Installations
+FROM Installations i
+JOIN Vendors v ON i.TIN_Number = v.TIN_Number
+JOIN Users u ON i.User_ID = u.User_ID
+WHERE u.User_Type = 'Domestic'
+GROUP BY v.TIN_Number, v.Name
+ORDER BY Number_of_Installations DESC
+LIMIT 1;
+
+
+SELECT u.Address AS Place_Name, p.PV_Module_ID
+FROM Installations i
+JOIN Users u ON i.User_ID = u.User_ID
+JOIN Panels p ON i.PV_Module_ID = p.PV_Module_ID
+ORDER BY p.PV_Module_ID DESC
+LIMIT 1;
+
+
+SELECT DISTINCT u.Address AS Area
+FROM Installations i
+JOIN Users u ON i.User_ID = u.User_ID
+JOIN Panels p ON i.PV_Module_ID = p.PV_Module_ID
+WHERE p.Type = 'Monocrystalline';
+
+
+
+SELECT p.Type, SUM(p.Installation_Charge) AS Total_Installation_Charge
+FROM Installations i
+JOIN Users u ON i.User_ID = u.User_ID
+JOIN Panels p ON i.PV_Module_ID = p.PV_Module_ID
+WHERE u.Address = 'Specific Address' -- Replace with actual address
+GROUP BY p.Type;
+
+
+SELECT v.Name AS Distributor_Name, p.Type AS Panel_Type, p.Installation_Charge, MIN(i.Installation_Date) AS Oldest_Installation_Date
+FROM Installations i
+JOIN Vendors v ON i.TIN_Number = v.TIN_Number
+JOIN Panels p ON i.PV_Module_ID = p.PV_Module_ID
+GROUP BY v.Name, p.Type, p.Installation_Charge
+ORDER BY Oldest_Installation_Date ASC
+LIMIT 1;
+
+
+SELECT p.Type, AVG(p.Installation_Charge) AS Average_Sales
+FROM Installations i
+JOIN Users u ON i.User_ID = u.User_ID
+JOIN Panels p ON i.PV_Module_ID = p.PV_Module_ID
+WHERE u.User_Type = 'Commercial'
+GROUP BY p.Type;
