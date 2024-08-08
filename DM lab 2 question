@@ -1,0 +1,16 @@
+Exercise: 2
+
+India is a leading country in producing renewable solar energy. There are two types of solar panels available in Indian market namely, monocrystalline polycrystalline solar panel which are installed on the roof. Both the type of panel is available and for domestic and commercial usage. The installation charges for monocrystalline panels are around 40,000 and polycrystalline panels around 60,000. The warranty of monocrystallineand polycrystalline panels is 15 years and 25 years respectively from the date omninstallation. Each panel is identified by a unique photovoltaic module (PV module). These panels are installed for both domestic (houses) and commercial (offices, hotels, hostels etc) usage. The installations are done by authorised vendors who also are the distributors of the panels. The vendors or distributors are identified by their unique TIN number, name, address, contact details. The users are identified by their House/ office numbers, address. The capacity of the panels depends on the number of members in the installed place. So. there can be multiple installation of panels from different vendors in the same place.
+
+Queries:
+
+a) List the distributor with most installations in domestic places
+
+b) List the place name with highest capacity panel installed
+
+c) Display the area where monocrystalline panels are installed
+
+d) For the specific area display the total installation charges for both type of PV modules 
+e) List the details of
+
+distributors and panel that is the oldest installation f) Find the average sales of both type of panels in only commercial places
