@@ -1,0 +1,57 @@
+// Singleton.java
+public final class Singleton {
+
+    // Volatile keyword ensures that multiple threads handle the uniqueInstance variable correctly
+    private static volatile Singleton uniqueInstance = null;
+
+    // Private constructor prevents instantiation from other classes
+    private Singleton() {
+        // Initialization code (if any)
+    }
+
+    // Thread-safe method to get the unique instance of the class
+    public static Singleton getInstance() {
+        if (uniqueInstance == null) {
+            synchronized (Singleton.class) {
+                if (uniqueInstance == null) {
+                    uniqueInstance = new Singleton();
+                }
+            }
+        }
+        return uniqueInstance;
+    }
+
+    // Example of an immutable field
+    private final String name = "SingletonInstance";
+
+    // Example of an immutable method
+    public String getName() {
+        return name;
+    }
+
+    // Prevent cloning
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        throw new CloneNotSupportedException();
+    }
+
+    // Prevent serialization and deserialization
+    protected Object readResolve() {
+        return getInstance();
+    }
+}
+
+// Main.java
+public class Main {
+    public static void main(String[] args) {
+        // Access the singleton instance
+        Singleton instance1 = Singleton.getInstance();
+        Singleton instance2 = Singleton.getInstance();
+
+        // Demonstrate that both references point to the same object
+        System.out.println("Are both instances the same? " + (instance1 == instance2));
+
+        // Access the immutable field
+        System.out.println("Instance name: " + instance1.getName());
+    }
+}
