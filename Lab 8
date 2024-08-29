@@ -1,0 +1,94 @@
+
+package genericsprg8;
+import java.util.*;
+
+class UpperBoundWildcard<T> {
+    private List<T> items = new ArrayList<>();
+
+    public void addItem(T item) {
+        items.add(item);
+    }
+
+    public List<T> getItems() {
+        return items;
+    }
+
+    public static double sum(List<? extends Number> list) {
+        double total = 0;
+        for (Number num : list) {
+            total += num.doubleValue();
+        }
+        return total;
+    }
+
+    public void sort(Comparator<? super T> comparator) {
+        Collections.sort(items, comparator);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int choice;
+        UpperBoundWildcard<Number> numberList = new UpperBoundWildcard<>();
+        UpperBoundWildcard<String> stringList = new UpperBoundWildcard<>();
+
+        do {
+            System.out.println("1. Add Integer");
+            System.out.println("2. Add Double");
+            System.out.println("3. Add Float");
+            System.out.println("4. Add String");
+            System.out.println("5. Sum Numbers");
+            System.out.println("6. Sort Numbers");
+            System.out.println("7. Print List of Numbers");
+            System.out.println("8. Print List of Strings");
+            System.out.println("9. Exit");
+            System.out.print("Enter your choice: ");
+            choice = sc.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter an Integer: ");
+                    int intInput = sc.nextInt();
+                    numberList.addItem(intInput);
+                    break;
+                case 2:
+                    System.out.print("Enter a Double: ");
+                    double doubleInput = sc.nextDouble();
+                    numberList.addItem(doubleInput);
+                    break;
+                case 3:
+                    System.out.print("Enter a Float: ");
+                    float floatInput = sc.nextFloat();
+                    numberList.addItem(floatInput);
+                    break;
+                case 4:
+                    System.out.print("Enter a String: ");
+                    sc.nextLine(); // Consume newline
+                    String stringInput = sc.nextLine();
+                    stringList.addItem(stringInput);
+                    break;
+                case 5:
+                    System.out.println("Sum of Numbers: " + UpperBoundWildcard.sum(numberList.getItems()));
+                    break;
+                case 6:
+                    System.out.println("Sorting Numbers...");
+                    numberList.sort(Comparator.comparingDouble(Number::doubleValue));
+                    System.out.println("Sorted Numbers: " + numberList.getItems());
+                    break;
+                case 7:
+                    System.out.println("List of Numbers: " + numberList.getItems());
+                    break;
+                case 8:
+                    System.out.println("List of Strings: " + stringList.getItems());
+                    break;
+                case 9:
+                    System.out.println("Exiting...");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        } while (choice != 9);
+        sc.close();
+    }
+}
