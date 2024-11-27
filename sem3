@@ -1,0 +1,58 @@
+[11/27, 10:46 AM] +91 93806 51304: SpringApplication.run(Labprog11Application.class, args);
+		System.out.println("hello world");
+		ApplicationContext ac = new ClassPathXmlApplicationContext("bean.xml");
+		Person p = (Person)ac.getBean("person");
+		p.setAddress("kengeri");
+		p.setName("rvce");
+		p.setPid(0);
+		
+		System.out.println(p);
+		
+		Person p1 = (Person)ac.getBean("person");
+		System.out.println(p1.getAddress());
+[11/27, 10:46 AM] +91 93806 51304: //java bean class
+public class Person {
+	//protperties 
+	String name;
+	String address;
+	int pid;
+	
+	public void init() {
+		System.out.println("in bean initilization");
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public int getPid() {
+		return pid;
+	}
+	public void setPid(int pid) {
+		this.pid = pid;
+	}
+//	@Override
+//	public String toString() {
+//		return "Person [name=" + name + ", address=" + address + ", pid=" + pid + "]";
+//	}
+
+}
+[11/27, 10:47 AM] +91 93806 51304: <?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:util="http://www.springframework.org/schema/util" xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"> <!-- bean definitions here -->
+<bean id="person" class="rvce.lab.programs.Person" scope="prototype" init-method="init">
+	<properties name = "name" value="rvce"/>
+	<properties name="address" value="kengeri"/>
+	<properties name="pid" value="1"/>
+</bean>
+</beans>
